@@ -1,0 +1,3 @@
+latitude	longitude	altitude_feet	altitude_meters	speed_kmh	speed_kts	speed_mph	verticalSpeed_fpm	verticalSpeed_ms	heading	squawk	timestamp
+47.544487	12.115816	5850	1783	0	0	0	0	0	0	0	1590477880
+47.543716	12.114408	5875	1791	0	0	0	384	2	232	0	1590477894

@@ -1,0 +1,4 @@
+latitude	longitude	altitude_feet	altitude_meters	speed_kmh	speed_kts	speed_mph	verticalSpeed_fpm	verticalSpeed_ms	heading	squawk	timestamp
+44.880478	-123.204277	825	251	159.3	86	99	1088	5.5	281	0	1590466134
+44.881199	-123.201622	725	221	150	81	93.2	1216	6.2	305	0	1590466326
+44.88213	-123.204903	825	251	161.1	87	100.1	960	4.9	279	0	1590466332

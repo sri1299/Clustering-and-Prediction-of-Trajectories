@@ -1,0 +1,1 @@
+{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"LineString","coordinates":[[140.499222,40.709419]]},"properties":[{"altitude":{"feet":20000,"meters":6096},"verticalSpeed":{"fpm":0,"ms":0},"speed":{"kmh":544.5,"kts":294,"mph":338.3}}]}]}
