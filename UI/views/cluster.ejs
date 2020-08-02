@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brahmaastra</title>
+    <script type="application/javascript" src="../js/plotly.js"></script>
+    <script type="application/javascript" src="../js/script.js"></script>
+    <script type="application/javascript" src="../js/jquery.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="row">
+        <div class="col-6">
+            <span id="span"></span>
+            <form class="d-flex justify-content-center">
+                <input type="file" name="filetoupload" id="filename" class="hidden">
+                <div class="btn btn-success btn-lg" id="uploadTrigger">Upload File</div>
+                <input type="hidden" id="altfile">
+            </form>
+            <div class="row" id="gap">
+                <div class="col d-flex justify-content-center" ><input class="btn btn-success btn-lg" id="2d" type="submit" value="Get 2D trajectory"></div>
+                <div class="col d-flex justify-content-center" ><input class="btn btn-success btn-lg" id="3d" type="submit" value="Get 3D trajectory"></div>     
+            </div>
+            <div class="row" id="gap">
+                <div class="col d-flex justify-content-center" ><a class="btn btn-success btn-md" href="/">Go to home</a></div>
+                <div class="col d-flex justify-content-center" ><a class="btn btn-success btn-md" href="/predictions">Lets predict</a></div>     
+            </div>
+        </div>  
+        <div class="col-6">
+            <div id="myDiv" ></div>
+            <div id="myDiv2" ></div>
+        </div>
+    </div>
+    <script>
+        $("#filename").on("input", function(){
+            document.getElementById('span').innerHTML = "You have chosen the file " + document.getElementById("filename").value.substring(12) +", choose any option";
+        });
+        $( "#2d" ).click(function() {  
+            var formData = document.getElementById("filename");
+            console.log(formData.value=="");
+            if(formData.value==""){
+                formData = document.getElementById("altfile");
+                console.log(formData.value);
+                if(formData.value==""){;}
+                else{
+                    var fname=formData.value;
+                    $.ajax({
+                        url: "/2D",
+                        type: 'POST',
+                        data: {"key":fname},
+                        success: function (data) {
+                            console.log("file is "+fname);
+                            fname=fname.replace(".csv","");
+                            window.open("cluster/"+fname)
+                        }
+                    }); 
+                }
+            }
+            else{
+                var fname=formData.value.substring(12);
+                $.ajax({
+                    url: "/2D",
+                    type: 'POST',
+                    data: {"key":fname},
+                    success: function (data) {
+                        fname=fname.replace(".csv","");
+                        window.open("cluster/"+fname)
+                    }
+                }); 
+            }
+        });
+        $( "#3d" ).click(function() {  
+            var formData = document.getElementById("filename");
+            if(formData.value==""){
+                formData = document.getElementById("altfile");
+                console.log(formData.value);
+                if(formData.value==""){;}
+                else{
+                    var fname=formData.value;
+                    $.ajax({
+                        url: "/3D",
+                        type: 'POST',
+                        data: {"key":fname},
+                        success: function (data) {
+                            window.open("/view3d")
+                        }
+                    });
+                    
+                }
+            }
+            else{
+                var fname=formData.value.substring(12);
+                $.ajax({
+                    url: "/3D",
+                    type: 'POST',
+                    data: {"key":fname},
+                    success: function (data) {
+                        window.open("/view3d")
+                    }
+                });
+            }   
+        });
+        $("#uploadTrigger").click(function(){
+            $("#filename").click();
+        });
+    </script>
+</body>
+
+</html>

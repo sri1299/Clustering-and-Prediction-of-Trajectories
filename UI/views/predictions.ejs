@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brahmaastra</title>
+    <script type="application/javascript" src="../js/jquery.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="row">
+        <div class="col-6">
+            <form class="d-flex justify-content-center">
+                <input type="file" name="filetoupload" id="filename" class="hidden">
+                <div class="btn btn-success btn-lg" id="uploadTrigger">Upload File</div>
+            </form>
+            <span id="span"></span>
+            <div class="row" id="gap">
+                <div class="col d-flex justify-content-center" ><input class="btn btn-success btn-md" id="2dp" type="submit" value="Get 2D trajectory with prediction"></div>
+                <div class="col d-flex justify-content-center" ><input class="btn btn-success btn-md" id="3dp" type="submit" value="Get 3D trajectory with prediction"></div>     
+            </div>
+            <div class="row" id="gap">
+                <div class="col d-flex justify-content-center" >
+                    <input class="btn btn-success btn-md" id="3dm" type="submit" value="Get 3D trajectory with missilelaunch">
+                </div>
+            </div>
+            <div class="row" id="gap">
+                <div class="col d-flex justify-content-center" ><a class="btn btn-success btn-md" href="/">Go to home</a></div>
+                <div class="col d-flex justify-content-center" ><a class="btn btn-success btn-md" href="/cluster">See cluster</a></div>     
+            </div>
+        </div>
+        <div class="col-6" id="frame2">
+            <iframe id="myFrame" src="predictedmaps/demo" height="100%" width="100%" title="Iframe Example"></iframe>
+        </div>
+    </div>
+    <script>
+        $("#filename").on("input", function(){
+            document.getElementById('span').innerHTML = "You have chosen the file " + document.getElementById("filename").value.substring(12) +", choose any option";
+        });
+        $( "#2dp" ).click(function() {  
+            var formData = document.getElementById("filename");
+            if(formData.value==""){}
+            else{
+                var fname=formData.value.substring(12);
+                $.ajax({
+                    url: "/2dp",
+                    type: 'POST',
+                    data: {"key":fname},
+                    success: function (data) {
+                        console.log(fname);
+                        fname=fname.replace(".csv","");
+                        $('#myFrame').attr('src', "predictedmaps/"+fname)
+                    }
+                }); 
+            }
+        });
+        $( "#3dp" ).click(function() {  
+            var formData = document.getElementById("filename");
+            if(formData.value==""){}
+            else{
+                var fname=formData.value.substring(12);
+                $.ajax({
+                    url: "/3dp",
+                    type: 'POST',
+                    data: {"key":fname},
+                    success: function (data) {
+                            window.open("/predview3dall")
+                        }
+                });
+            }   
+        });
+        $("#uploadTrigger").click(function(){
+            $("#filename").click();
+        });
+    </script>
+</body>
+</html>

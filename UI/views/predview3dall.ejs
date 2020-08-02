@@ -1,0 +1,273 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<script src="../js/plotly.js" type="application/javascript"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body style="background-color: #efefef;">
+<input id="filename" type="hidden" value="predictedtrajectories/test.csv"/>
+<div class="row"></div>
+<div id="myDiv"></div>
+<div id="myDiv1"></div>
+<div id="myDiv2"></div>
+<div id="myDiv3"></div>
+</body></html>
+<script>
+        var fname=document.getElementById("filename");
+        Plotly.d3.csv("../"+fname.value, function(err, rows){
+            function unpack(rows, key) {
+                return rows.map(function(row)
+            { return row[key]; });}
+            var obj1 = {
+                type: 'scatter3d',
+                mode: 'lines',
+                x: unpack(rows , 'latp'),
+                y: unpack(rows , 'lonp'),
+                z: unpack(rows , 'altp'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(255, 0, 0)',
+                  reversescale: false
+                },
+                name: "predicted path"
+            }
+            var obj2 = {
+                type: 'scatter3d',
+                mode: 'lines',
+                x: unpack(rows , 'lat'),
+                y: unpack(rows , 'lon'),
+                z: unpack(rows , 'alt'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(0, 0, 255)',
+                  reversescale: false
+                },
+                name: "train path"
+            }
+            var obj3 = {
+                type: 'scatter3d',
+                mode: 'lines',
+                x: unpack(rows , 'latt'),
+                y: unpack(rows , 'lont'),
+                z: unpack(rows , 'altt'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(0, 255, 0)',
+                  reversescale: false
+                },
+                name: "test path"
+            }
+            var data=[obj2,obj1,obj3];
+            var layout={
+                title: {
+                    text:"showing "+fname.value.substring(22),
+                    font: {
+                      family: 'Courier New, monospace',
+                      size: 14
+                    },
+                },
+                scene: {
+                    xaxis: {
+                        title: 'latitude'
+                    },
+                    yaxis: {
+                        title: 'longitude'
+                    },
+                    zaxis: {
+                        title: 'altitude'
+                    }
+                },
+                paper_bgcolor:'rgba(1,1,1,0)'
+            }
+            Plotly.newPlot('myDiv', data, layout);
+        });
+        Plotly.d3.csv("../"+fname.value, function(err, rows){
+            function unpack(rows, key) {
+                return rows.map(function(row)
+            { return row[key]; });}
+            var obj1 = {
+                type: 'scatter',
+                mode: 'lines',
+                x: unpack(rows , 'latp'),
+                y: unpack(rows , 'altp'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(255, 0, 0)',
+                  reversescale: false
+                },
+                name: "predicted path"
+            }
+            var obj2 = {
+                type: 'scatter',
+                mode: 'lines',
+                x: unpack(rows , 'lat'),
+                y: unpack(rows , 'alt'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(0, 0, 255)',
+                  reversescale: false
+                },
+                name: "train path"
+            }
+            var obj3 = {
+                type: 'scatter',
+                mode: 'lines',
+                x: unpack(rows , 'latt'),
+                y: unpack(rows , 'altt'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(0, 255, 0)',
+                  reversescale: false
+                },
+                name: "test path"
+            }
+            var data=[obj2,obj1,obj3];
+            var layout={
+                title: {
+                    text:"showing lat-alt plot of "+fname.value.substring(22),
+                    font: {
+                      family: 'Courier New, monospace',
+                      size: 14
+                    },
+                },
+                xaxis: {
+                    title: 'latitude'
+                },
+                yaxis: {
+                    title: 'altitude'
+                },
+                paper_bgcolor:'rgba(1,1,1,0)'
+            }
+            Plotly.newPlot('myDiv1', data, layout);
+        });
+        Plotly.d3.csv("../"+fname.value, function(err, rows){
+            function unpack(rows, key) {
+                return rows.map(function(row)
+            { return row[key]; });}
+            var obj1 = {
+                type: 'scatter',
+                mode: 'lines',
+                x: unpack(rows , 'lonp'),
+                y: unpack(rows , 'altp'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(255, 0, 0)',
+                  reversescale: false
+                },
+                name: "predicted path"
+            }
+            var obj2 = {
+                type: 'scatter',
+                mode: 'lines',
+                x: unpack(rows , 'lon'),
+                y: unpack(rows , 'alt'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(0, 0, 255)',
+                  reversescale: false
+                },
+                name: "train path"
+            }
+            var obj3 = {
+                type: 'scatter',
+                mode: 'lines',
+                x: unpack(rows , 'lont'),
+                y: unpack(rows , 'altt'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(0, 255, 0)',
+                  reversescale: false
+                },
+                name: "test path"
+            }
+            var data=[obj2,obj1,obj3];
+            var layout={
+                title: {
+                    text:"showing lon-alt plot of "+fname.value.substring(22),
+                    font: {
+                      family: 'Courier New, monospace',
+                      size: 14
+                    },
+                },
+                xaxis: {
+                    title: 'longitude'
+                },
+                yaxis: {
+                    title: 'altitude'
+                },
+                paper_bgcolor:'rgba(1,1,1,0)'
+            }
+            Plotly.newPlot('myDiv2', data, layout);
+        });
+        Plotly.d3.csv("../"+fname.value, function(err, rows){
+            function unpack(rows, key) {
+                return rows.map(function(row)
+            { return row[key]; });}
+            var obj1 = {
+                type: 'scatter',
+                mode: 'lines',
+                x: unpack(rows , 'latp'),
+                y: unpack(rows , 'lonp'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(255, 0, 0)',
+                  reversescale: false
+                },
+                name: "predicted path"
+            }
+            var obj2 = {
+                type: 'scatter',
+                mode: 'lines',
+                x: unpack(rows , 'lat'),
+                y: unpack(rows , 'lon'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(0, 0, 255)',
+                  reversescale: false
+                },
+                name: "train path"
+            }
+            var obj3 = {
+                type: 'scatter',
+                mode: 'lines',
+                x: unpack(rows , 'latt'),
+                y: unpack(rows , 'lont'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(0, 255, 0)',
+                  reversescale: false
+                },
+                name: "test path"
+            }
+            var data=[obj2,obj1,obj3];
+            var layout={
+                title: {
+                    text:"showing lon-alt plot of "+fname.value.substring(22),
+                    font: {
+                      family: 'Courier New, monospace',
+                      size: 14
+                    },
+                },
+                xaxis: {
+                    title: 'latitude'
+                },
+                yaxis: {
+                    title: 'longitude'
+                },
+                paper_bgcolor:'rgba(1,1,1,0)'
+            }
+            Plotly.newPlot('myDiv3', data, layout);
+        });
+    </script>

@@ -1,0 +1,57 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<script src="../js/plotly.js" type="application/javascript"></script>
+</head>
+<body style="background-color: #efefef;overflow: hidden;">
+<input id="filename" type="hidden" value="trajectories/t1.csv"/>
+<div id="myDiv" style="height: 100vh;"></div>
+</body>
+<script>
+        var fname=document.getElementById("filename");
+        console.log(fname.value)
+        // 24912e86_shanghai_hongqiao_international_airport_to_guangzhou_baiyun_international_airport.csv
+        Plotly.d3.csv("../"+fname.value, function(err, rows){
+            function unpack(rows, key) {
+                return rows.map(function(row)
+            { return row[key]; });}
+            var obj1 = {
+                type: 'scatter3d',
+                mode: 'lines',
+                x: unpack(rows , 'lat'),
+                y: unpack(rows , 'lon'),
+                z: unpack(rows , 'alt'),
+                opacity: 1,
+                line: {
+                  width: 6,
+                  color: 'rgb(255, 0, 0)',
+                  reversescale: false
+                }
+            }
+            var data=[obj1];
+            var layout={
+                title: {
+                    text:"showing "+fname.value.substring(13),
+                    font: {
+                      family: 'Courier New, monospace',
+                      size: 14
+                    },
+                },
+                scene: {
+                    xaxis: {
+                        title: 'latitude'
+                    },
+                    yaxis: {
+                        title: 'longitude'
+                    },
+                    zaxis: {
+                        title: 'altitude'
+                    }
+                },
+                paper_bgcolor:'rgba(1,1,1,0)'
+            }
+            Plotly.newPlot('myDiv', data, layout);
+        });
+
+    </script>
+</html>
