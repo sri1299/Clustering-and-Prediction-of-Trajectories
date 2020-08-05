@@ -40,5 +40,5 @@
 
 
 
-| [ParithiMalan]([https://www.github.com/superhakar) | [Nachiappan S K]([https://www.github.com/nachiappan14) | [Manasa Kashyap](https://github.com/manasa28) |
+| [ParithiMalan](https://www.github.com/superhakar) | [Nachiappan S K](https://www.github.com/nachiappan14) | [Manasa Kashyap](https://github.com/manasa28) |
 | :---: | :---: | :---: |
